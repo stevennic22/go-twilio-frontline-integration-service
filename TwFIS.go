@@ -64,7 +64,7 @@ func callbackRouting(c *gin.Context, client *twilio.RestClient, authToken string
 
 // Initialize webserver
 func main() {
-	providers.CurrentEnv.Location = path.Join(".static/" + ".env")
+	providers.CurrentEnv.Location = path.Join("static/" + ".env")
 	serverPort := ":" + providers.CurrentEnv.RetrieveValue("LISTEN_PORT")
 
 	providers.SetUpCustomerList(providers.CurrentEnv.RetrieveValue("Worker_Identity"))
