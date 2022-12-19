@@ -39,7 +39,7 @@ bin/TwFIS
 docker build ./ --cpu-shares 512 \
 -t stevennic/go-twilio-frontline-integration-service:0.0.1
 
-docker run --name=go-test-frontline \
+docker run --name=go-twilio-frontline-integration-service \
 --workdir=/usr/src/app \
 -p 8082:8082 \
 stevennic/go-twilio-frontline-integration-service:0.0.1 TwFIS
