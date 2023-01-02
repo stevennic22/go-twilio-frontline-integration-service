@@ -44,7 +44,10 @@ func (d DotEnv) RetrieveValue(key string) string {
 	err := godotenv.Load(d.Location)
 
 	if err != nil {
-		log.Fatalf("Error loading .env file: %s", err)
+		log.Println("!!Error loading .env file!!")
+		log.Printf("               Location: %s", d.Location)
+		log.Printf("          Requested Key: %s", key)
+		log.Fatalf("                  Error: %s", err)
 	}
 
 	d.LastLoaded.Key = key
