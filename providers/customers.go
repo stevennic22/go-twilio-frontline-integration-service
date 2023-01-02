@@ -59,12 +59,10 @@ func ValInStringSlice(argList []string, x string) bool {
 	return false
 }
 
-var customersToWorkersMap = map[string]string{
-	"+15557778888": CurrentEnv.RetrieveValue("Worker_Identity"),
-}
+var CustomersToWorkersMap = map[string]string{}
 
 func FindWorkerForCustomer(customerNumber string) string {
-	return (customersToWorkersMap[customerNumber])
+	return (CustomersToWorkersMap[customerNumber])
 }
 
 func FindRandomWorker() string {
@@ -72,13 +70,13 @@ func FindRandomWorker() string {
 	// Use built workers list to return a random index to randomly assign
 	var workers []string
 
-	for _, v := range customersToWorkersMap {
+	for _, v := range CustomersToWorkersMap {
 		if !ValInStringSlice(workers, v) {
 			workers = append(workers, v)
 		}
 	}
 
-	if len(customersToWorkersMap) > 0 {
+	if len(CustomersToWorkersMap) > 0 {
 		rand.Seed(time.Now().UnixNano())
 		randomWorkerIndex := rand.Intn(len(workers))
 		return (workers[randomWorkerIndex])
@@ -132,59 +130,59 @@ func GetCustomerById(cID int) *Customer {
 // Generation of integrated customer list
 var Customers []*Customer
 
-var Customer1 = &Customer{
-	Avatar:      "https://example.com/image.jpeg",
-	CustomerID:  1,
-	DisplayName: "Customer 1",
-	Channels: []Channel{
-		{
-			Type:  "sms",
-			Value: "+15557778888",
-		},
-		{
-			Type:  "chat",
-			Value: CurrentEnv.RetrieveValue("Worker_Identity"),
-		},
-	},
-	Links: []Link{
-		{
-			Type:        "Facebook",
-			Value:       "https://meta.facebook.com/",
-			DisplayName: "Meta",
-		},
-	},
-	Details: Detail{
-		Title:   "Purchase History",
-		Content: "Product: Unobtanium\n\nDate: 2021-07-07\nQuantity: 1000 units\n\nSales rep: Ash Williams",
-	},
-	Worker: CurrentEnv.RetrieveValue("Worker_Identity"),
-}
-
-var Customer2 = &Customer{
-	Avatar:      "https://example.com/image.jpeg",
-	CustomerID:  2,
-	DisplayName: "Customer 2",
-	Channels: []Channel{
-		{
-			Type:  "sms",
-			Value: "+15557778888",
-		},
-	},
-	Links: []Link{
-		{
-			Type:        "Facebook",
-			Value:       "https://meta.facebook.com/",
-			DisplayName: "Facebook",
-		},
-	},
-	Details: Detail{
-		Title:   "Purchase History",
-		Content: "Product: Unobtanium\n\nDate: 2021-07-07\nQuantity: 1000 units\n\nSales rep: Ash Williams",
-	},
-	Worker: CurrentEnv.RetrieveValue("Worker_Identity"),
-}
-
 func SetUpCustomerList(passedWorker string) {
-	Customers = append(Customers, Customer1)
-	Customers = append(Customers, Customer2)
+
+	var customer1 = &Customer{
+		Avatar:      "https://example.com/image.jpeg",
+		CustomerID:  1,
+		DisplayName: "Customer 1",
+		Channels: []Channel{
+			{
+				Type:  "sms",
+				Value: "+15557778888",
+			},
+			{
+				Type:  "chat",
+				Value: CurrentEnv.RetrieveValue("Worker_Identity"),
+			},
+		},
+		Links: []Link{
+			{
+				Type:        "Facebook",
+				Value:       "https://meta.facebook.com/",
+				DisplayName: "Meta",
+			},
+		},
+		Details: Detail{
+			Title:   "Purchase History",
+			Content: "Product: Unobtanium\n\nDate: 2021-07-07\nQuantity: 1000 units\n\nSales rep: Ash Williams",
+		},
+		Worker: CurrentEnv.RetrieveValue("Worker_Identity"),
+	}
+
+	var customer2 = &Customer{
+		Avatar:      "https://example.com/image.jpeg",
+		CustomerID:  2,
+		DisplayName: "Customer 2",
+		Channels: []Channel{
+			{
+				Type:  "sms",
+				Value: "+15557778888",
+			},
+		},
+		Links: []Link{
+			{
+				Type:        "Facebook",
+				Value:       "https://meta.facebook.com/",
+				DisplayName: "Facebook",
+			},
+		},
+		Details: Detail{
+			Title:   "Purchase History",
+			Content: "Product: Unobtanium\n\nDate: 2021-07-07\nQuantity: 1000 units\n\nSales rep: Ash Williams",
+		},
+		Worker: CurrentEnv.RetrieveValue("Worker_Identity"),
+	}
+	Customers = append(Customers, customer1)
+	Customers = append(Customers, customer2)
 }
