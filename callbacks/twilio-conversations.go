@@ -91,21 +91,23 @@ func UpdateParticipantAttributes(c *gin.Context, client *twilio.RestClient, inco
 
 	if isCustomer {
 		customerDetails = providers.GetCustomerByNumber(incomingParams["MessagingBinding.Address"])
-	}
 
-	conversationParams := &conversations.UpdateConversationParticipantParams{}
-	conversationParams.SetAttributes(fmt.Sprintf("{\"avatar\": \"%s\", \"customer_id\": \"%d\", \"display_name\": \"%s\"}",
-		customerDetails.Avatar,
-		customerDetails.CustomerID,
-		customerDetails.DisplayName,
-	))
+		if customerDetails.CustomerID > 0 {
+			conversationParams := &conversations.UpdateConversationParticipantParams{}
+			conversationParams.SetAttributes(fmt.Sprintf("{\"avatar\": \"%s\", \"customer_id\": \"%d\", \"display_name\": \"%s\"}",
+				customerDetails.Avatar,
+				customerDetails.CustomerID,
+				customerDetails.DisplayName,
+			))
 
-	resp, err := client.ConversationsV1.UpdateConversationParticipant(incomingParams["ConversationSid"], incomingParams["ParticipantSid"], conversationParams)
-	if !web.CheckError(err, false) {
-		if resp.ConversationSid != nil {
-			log.Println(*resp.ConversationSid)
-		} else {
-			log.Println(resp.ConversationSid)
+			resp, err := client.ConversationsV1.UpdateConversationParticipant(incomingParams["ConversationSid"], incomingParams["ParticipantSid"], conversationParams)
+			if !web.CheckError(err, false) {
+				if resp.ConversationSid != nil {
+					log.Println(*resp.ConversationSid)
+				} else {
+					log.Println(resp.ConversationSid)
+				}
+			}
 		}
 	}
 
