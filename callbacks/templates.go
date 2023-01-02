@@ -20,6 +20,7 @@ func HandleGetTemplatesByCustomerIdCallback(c *gin.Context, params map[string]st
 
 	if customer.DisplayName == "" {
 		c.String(http.StatusNotFound, "404-FILENOTFOUND")
+		return
 	}
 
 	var openersCategory = providers.Category{
