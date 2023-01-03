@@ -59,8 +59,12 @@ TWILIO_AUTH_TOKEN=w2x5y2z6
 Worker_Identity=user@example.com
 
 # Variables for chat configuration
-TWILIO_SMS_NUMBER # Twilio number for incoming/outgoing SMS
+TWILIO_SMS_NUMBER      # Twilio number for incoming/outgoing SMS
 TWILIO_WHATSAPP_NUMBER # Twilio number for incoming/outgoing Whatsapp
+
+# Variables for customer configuration
+CUSTOMER_PHONE_1=+15557778888
+CUSTOMER_PHONE_2=+14443339999
 ```
 
 ## Setting up customers and mapping
@@ -84,7 +88,7 @@ var customersToWorkersMap = map[string]string{
 
 
 ### Customers list
-In the CRM callback reponse, each [customer object](https://www.twilio.com/docs/frontline/data-transfer-objects#customer) should look like this: 
+In the CRM callback response, each [customer object](https://www.twilio.com/docs/frontline/data-transfer-objects#customer) should look like this: 
 
 Example:
 ```golang

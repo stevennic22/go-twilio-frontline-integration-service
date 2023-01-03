@@ -130,7 +130,7 @@ func GetCustomerById(cID int) *Customer {
 // Generation of integrated customer list
 var Customers []*Customer
 
-func SetUpCustomerList(passedWorker string) {
+func SetUpCustomerList(passedWorker string, customerNumber1 string, customerNumber2 string) {
 
 	var customer1 = &Customer{
 		Avatar:      "https://example.com/image.jpeg",
@@ -139,11 +139,11 @@ func SetUpCustomerList(passedWorker string) {
 		Channels: []Channel{
 			{
 				Type:  "sms",
-				Value: "+15557778888",
+				Value: customerNumber1,
 			},
 			{
 				Type:  "chat",
-				Value: CurrentEnv.RetrieveValue("Worker_Identity"),
+				Value: passedWorker,
 			},
 		},
 		Links: []Link{
@@ -157,7 +157,7 @@ func SetUpCustomerList(passedWorker string) {
 			Title:   "Purchase History",
 			Content: "Product: Unobtanium\n\nDate: 2021-07-07\nQuantity: 1000 units\n\nSales rep: Ash Williams",
 		},
-		Worker: CurrentEnv.RetrieveValue("Worker_Identity"),
+		Worker: passedWorker,
 	}
 
 	var customer2 = &Customer{
@@ -167,7 +167,7 @@ func SetUpCustomerList(passedWorker string) {
 		Channels: []Channel{
 			{
 				Type:  "sms",
-				Value: "+15557778888",
+				Value: customerNumber2,
 			},
 		},
 		Links: []Link{
@@ -181,8 +181,12 @@ func SetUpCustomerList(passedWorker string) {
 			Title:   "Purchase History",
 			Content: "Product: Unobtanium\n\nDate: 2021-07-07\nQuantity: 1000 units\n\nSales rep: Ash Williams",
 		},
-		Worker: CurrentEnv.RetrieveValue("Worker_Identity"),
+		Worker: passedWorker,
 	}
+
 	Customers = append(Customers, customer1)
 	Customers = append(Customers, customer2)
+
+	CustomersToWorkersMap[customerNumber1] = passedWorker
+	CustomersToWorkersMap[customerNumber2] = passedWorker
 }

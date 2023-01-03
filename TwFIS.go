@@ -67,8 +67,11 @@ func main() {
 	providers.CurrentEnv.Location = path.Join("static/" + ".env")
 	serverPort := ":" + providers.CurrentEnv.RetrieveValue("LISTEN_PORT")
 
-	providers.CustomersToWorkersMap["+15557778888"] = providers.CurrentEnv.RetrieveValue("Worker_Identity")
-	providers.SetUpCustomerList(providers.CurrentEnv.RetrieveValue("Worker_Identity"))
+	providers.SetUpCustomerList(
+		providers.CurrentEnv.RetrieveValue("Worker_Identity"),
+		providers.CurrentEnv.RetrieveValue("CUSTOMER_PHONE_1"),
+		providers.CurrentEnv.RetrieveValue("CUSTOMER_PHONE_2"),
+	)
 
 	accountSid := providers.CurrentEnv.RetrieveValue("TWILIO_ACCOUNT_SID")
 	authToken := providers.CurrentEnv.RetrieveValue("TWILIO_AUTH_TOKEN")
